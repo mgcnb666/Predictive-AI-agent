@@ -4,45 +4,8 @@
 
 > 🌐 **Universal Prediction System** - Multi-domain predictions for sports, weather, elections, and more
 
-An intelligent multi-domain prediction system based on [OpenDeepSearch](https://github.com/sentient-agi/OpenDeepSearch) 
+An intelligent multi-domain prediction system based on [OpenDeepSearch](https://github.com/sentient-agi/OpenDeepSearch)
 
-
-## ✨ Core Features
-
-- 🤖 **Natural Language Interaction** - Ask in plain English, no commands to memorize 🆕
-- 🔄 **Context Sharing** - Share conversation history and preferences across agents 🆕
-- 🧠 **Smart Completion** - Auto-fill missing parameters, remember your choices 🆕
-- 💡 **Show Thinking Process** - AI shows how it understands and extracts keywords 🆕
-- 🔍 **Deep Data Collection** - Use OpenDeepSearch for comprehensive web search
-- 🎯 **AI-Driven Prediction** - Hybrid predictions combining LLM reasoning and statistical models
-- 📊 **Smart Parameter Extraction** - Automatically identify intent and key information
-- 💰 **Betting Advice** - Kelly Criterion-based bankroll management and EV calculation (sports domain)
-- ⚡ **FastAPI Interface** - RESTful API support, easy integration
-- 🎛️ **Multiple Interaction Methods** - Natural language, CLI, Python API
-- 🌐 **Multi-Domain Support** - Sports, weather, elections, **any topic** 🆕
-
-## 🏗️ System Architecture
-
-```
-┌─────────────────────────────────────────┐
-│          FastAPI REST API               │
-│        (HTTP/JSON Interface)            │
-└──────────────┬──────────────────────────┘
-               ↓
-┌──────────────┴──────────────────────────┐
-│       PredictionAgent (Core)            │
-│  - Workflow Orchestration               │
-│  - Risk Management                      │
-└──────────────┬──────────────────────────┘
-               ↓
-    ┌──────────┼──────────┐
-    ↓          ↓          ↓
-┌────────┐ ┌──────┐ ┌──────────┐
-│Data    │ │Feature│ │Prediction│
-│Collector│ │Extract│ │Engine    │
-│(OpenDS)│ │      │ │(LLM+Stats)│
-└────────┘ └──────┘ └──────────┘
-```
 
 ## 🚀 Getting Started
 
@@ -88,6 +51,7 @@ RERANKER=jina
 # Start chat
 python3 chat.py
 
+python3 main.py api --host 0.0.0.0 --port 8789
 
 **Supported Commands:**
 - `/help` - Show help

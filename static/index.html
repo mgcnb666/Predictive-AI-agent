@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PredictionAI - AI Prediction Analysis System</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <!-- Chat Container -->
+    <div class="chat-container">
+        <!-- Header -->
+        <header class="chat-header">
+            <div class="header-left">
+                <h1 class="chat-title">PredictionAI</h1>
+                <span class="status-dot" id="statusDot"></span>
+            </div>
+            <button class="icon-btn" id="settingsBtn" title="Settings">
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="10" cy="10" r="3"></circle>
+                    <path d="M10 1v2m0 14v2M3.93 3.93l1.41 1.41m9.9 9.9l1.41 1.41M1 10h2m14 0h2M4.34 15.66l1.41-1.41m9.9-9.9l1.41-1.41"></path>
+                </svg>
+            </button>
+        </header>
+
+        <!-- Chat Messages -->
+        <div class="chat-messages" id="chatMessages">
+            <div class="welcome-message">
+                <h2>Welcome to PredictionAI</h2>
+                <p>I'm your universal prediction AI assistant, ready to analyze and predict various scenarios</p>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="chat-loading" id="chatLoading" style="display: none;">
+            <div class="typing-indicator">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+            <div class="input-options">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="useSearch" checked>
+                    <span>Real-time Search</span>
+                </label>
+            </div>
+            <form class="chat-input-form" id="chatForm">
+                <textarea
+                    class="chat-input"
+                    id="chatInput"
+                    placeholder="Enter your prediction question..."
+                    rows="1"
+                ></textarea>
+                <button type="submit" class="send-btn" id="sendBtn">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M2 3l18 7-18 7V3zm2 11.5l11-4.5L4 5.5v9z"></path>
+                    </svg>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Settings</h2>
+                <button class="close-btn" id="closeSettings">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="settings-tabs">
+                    <button class="settings-tab-btn active" data-setting="search">Search</button>
+                    <button class="settings-tab-btn" data-setting="llm">LLM Model</button>
+                    <button class="settings-tab-btn" data-setting="openrouter">OpenRouter</button>
+                </div>
+
+                <!-- Search Settings -->
+                <div class="settings-content active" id="search-settings">
+                    <h3>OpenDeepSearch Configuration</h3>
+                    <div class="form-group">
+                        <label for="serperApiKey">Serper API Key</label>
+                        <input type="password" id="serperApiKey" placeholder="your-serper-api-key">
+                    </div>
+                    <div class="form-group">
+                        <label for="jinaApiKey">Jina API Key</label>
+                        <input type="password" id="jinaApiKey" placeholder="your-jina-api-key">
+                    </div>
+                    <div class="form-group">
+                        <label for="searchProvider">Search Provider</label>
+                        <select id="searchProvider">
+                            <option value="serper">Serper</option>
+                            <option value="searxng">SearXNG</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="reranker">Reranker</label>
+                        <select id="reranker">
+                            <option value="jina">Jina</option>
+                            <option value="infinity">Infinity</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- LLM Settings -->
+                <div class="settings-content" id="llm-settings">
+                    <h3>LLM Model Configuration</h3>
+                    <div class="form-group">
+                        <label for="litellmModelId">LiteLLM Model ID</label>
+                        <input type="text" id="litellmModelId" placeholder="openrouter/google/gemini-2.0-flash-001">
+                    </div>
+                    <div class="common-models">
+                        <p><strong>Common Models:</strong></p>
+                        <div class="model-chips">
+                            <button class="chip" data-model="openrouter/google/gemini-2.0-flash-001">Gemini 2.0 Flash</button>
+                            <button class="chip" data-model="openrouter/anthropic/claude-3.5-sonnet">Claude 3.5 Sonnet</button>
+                            <button class="chip" data-model="openrouter/openai/gpt-4o">GPT-4o</button>
+                            <button class="chip" data-model="openrouter/openai/gpt-4o-mini">GPT-4o Mini</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OpenRouter Settings -->
+                <div class="settings-content" id="openrouter-settings">
+                    <h3>OpenRouter Configuration</h3>
+                    <div class="form-group">
+                        <label for="openrouterApiKey">OpenRouter API Key</label>
+                        <input type="password" id="openrouterApiKey" placeholder="your-openrouter-api-key">
+                    </div>
+                    <div class="form-group">
+                        <label for="openrouterBaseUrl">Base URL</label>
+                        <input type="text" id="openrouterBaseUrl" placeholder="https://openrouter.ai/api/v1">
+                    </div>
+                    <div class="form-group">
+                        <label for="openrouterModel">Model Name</label>
+                        <input type="text" id="openrouterModel" placeholder="google/gemini-2.0-flash-001">
+                    </div>
+                    <div class="form-group">
+                        <label for="yourSiteUrl">Site URL (Optional)</label>
+                        <input type="text" id="yourSiteUrl" placeholder="https://your-site.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="yourSiteName">Site Name (Optional)</label>
+                        <input type="text" id="yourSiteName" placeholder="Prediction AI Agent">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="resetSettings">Reset to Default</button>
+                <button class="btn btn-primary" id="saveSettings">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>
