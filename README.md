@@ -52,12 +52,3 @@ RERANKER=jina
 python3 chat.py
 
 python3 main.py api --host 0.0.0.0 --port 8789
-
-**Supported Commands:**
-- `/help` - Show help
-- `/history` - View conversation history
-- `/context` - View current context
-- `/clear` - Clear context
-- `/set <key> <value>` - Set preference
-- `/quit` or `/exit` - Exit
-
